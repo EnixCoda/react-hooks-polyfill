@@ -63,8 +63,11 @@ function releaseMemory(target: React.Component) {
 }
 
 function safeGuard() {
-  if (!lockedTarget || !memoryMap.has(lockedTarget)) {
+  if (!lockedTarget) {
     throw new Error('unexpected call outside component')
+  }
+  if (!memoryMap.has(lockedTarget)) {
+    register(lockedTarget)
   }
 }
 
@@ -185,50 +188,38 @@ export function useContext<T>(context: React.Context<T>) {
 export function holyShit() {
   activate({
     transformToClass: true,
+    fill: true,
   })
-  addMiddleware(
-    ({
-      componentInstance,
-      componentClass,
-      lifecycleName,
-      lifecycleArguments: [props],
-      returnAs,
-    }) => {
-      const instance = <React.Component>componentInstance
-      switch (lifecycleName) {
-        case 'componentWillMount': {
-          if (React.isValidElement(componentInstance)) return
-          register(instance)
-          break
-        }
-        case 'componentDidMount':
-        case 'componentDidUpdate':
-          runWithLock(instance, () => flushEffectBuffer())
-          break
-        case 'componentWillUnmount': {
-          runWithLock(instance, () => {
-            flushUnsubscriptions()
-            releaseMemory(instance)
-          })
-          break
-        }
-        case 'render': {
-          runWithLock(
-            instance,
-            releaseLock =>
-              runWithRendering(
-                releaseRendering =>
-                  returnAs(returnValue => {
-                    releaseLock()
-                    releaseRendering()
-                    return returnValue
-                  }),
-                false
-              ),
-            false
-          )
-        }
+  addMiddleware(({ componentInstance, lifecycleName, returnAs }) => {
+    const instance = <React.Component>componentInstance
+    switch (lifecycleName) {
+      case 'componentDidMount':
+      case 'componentDidUpdate':
+        runWithLock(instance, () => flushEffectBuffer())
+        break
+      case 'componentWillUnmount': {
+        runWithLock(instance, () => {
+          flushUnsubscriptions()
+          releaseMemory(instance)
+        })
+        break
+      }
+      case 'render': {
+        runWithLock(
+          instance,
+          releaseLock =>
+            runWithRendering(
+              releaseRendering =>
+                returnAs(returnValue => {
+                  releaseLock()
+                  releaseRendering()
+                  return returnValue
+                }),
+              false
+            ),
+          false
+        )
       }
     }
-  )
+  })
 }

@@ -1,10 +1,10 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
-const { useEffect, useState, useContext, useHooks, holyShit } = require('../build/index')
+const { useEffect, useState, useContext, holyShit } = require('../build/index')
 
-const TestContext = React.createContext(0)
 holyShit()
-const StateAndEffects = function WithState() {
+
+function StateAndEffects() {
   let [count, setCount] = useState(0)
   useEffect(() => {
     console.log('This run only ONCE')
@@ -34,16 +34,19 @@ const StateAndEffects = function WithState() {
   )
 }
 
-const ContextConsumer = function ContextConsumer() {
+const TestContext = React.createContext(0)
+function ContextConsumer() {
   const value = useContext(TestContext)
   return value
 }
 
-const ToggleMount = function ToggleMount(props) {
+function ToggleMount(props) {
   const [active, setActive] = useState(true)
   return (
     <div>
-      <button onClick={() => setActive(!active)}>toggle</button>
+      <div>
+        <button onClick={() => setActive(!active)}>{active ? 'unmount' : 'mount'}</button>
+      </div>
       {active ? props.children : null}
     </div>
   )
