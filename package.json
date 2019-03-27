@@ -1,5 +1,5 @@
 {
-  "name": "react-use-hooks",
+  "name": "react-hooks-polyfill",
   "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
