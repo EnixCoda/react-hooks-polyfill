@@ -1,8 +1,11 @@
 {
   "name": "react-hooks-polyfill",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "build/index.js",
   "license": "MIT",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "yarn parcel test/index.html"
