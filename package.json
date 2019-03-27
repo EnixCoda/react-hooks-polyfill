@@ -8,9 +8,9 @@
     "test": "yarn parcel test/index.html"
   },
   "dependencies": {
-    "@types/react": "^16.8.8",
-    "react": "^16.0.0",
-    "react-dom": "^16.8.5",
+    "@types/react": "16",
+    "react": "16.3",
+    "react-dom": "16",
     "react-lifecycle-hooks": "^0.4.0"
   },
   "devDependencies": {

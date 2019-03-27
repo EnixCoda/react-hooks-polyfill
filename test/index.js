@@ -55,9 +55,12 @@ function ToggleMount(props) {
 const root = document.querySelector('#react-root')
 if (root) {
   ReactDOM.render(
-    <ToggleMount>
-      <StateAndEffects />
-    </ToggleMount>,
+    <div>
+      <p>React version: {React.version}</p>
+      <ToggleMount>
+        <StateAndEffects />
+      </ToggleMount>
+    </div>,
     root
   )
 }

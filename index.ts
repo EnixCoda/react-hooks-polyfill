@@ -182,7 +182,15 @@ export function useHooks<P>(functionComponent: React.SFC<P>) {
 
 export function useContext<T>(context: React.Context<T>) {
   // hack
-  return (<any>context)._currentValue || (<any>context)._currentValue2
+  if ('_currentValue2' in context) {
+    return (<any>context)._currentValue2
+  }
+  if ('_currentValue' in context) {
+    return (<any>context)._currentValue
+  }
+  if ('_defaultValue' in context) {
+    return (<any>context)._defaultValue
+  }
 }
 
 export function holyShit() {
