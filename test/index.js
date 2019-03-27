@@ -1,12 +1,10 @@
+require('../build/index')
 const React = require('react')
 const ReactDOM = require('react-dom')
-const { useEffect, useState, useContext, holyShit } = require('../build/index')
-
-holyShit()
 
 function StateAndEffects() {
-  let [count, setCount] = useState(0)
-  useEffect(() => {
+  let [count, setCount] = React.useState(0)
+  React.useEffect(() => {
     console.log('This run only ONCE')
     // useState() // Un-comment this will raise an expected error.
     const id = setInterval(() => setCount(++count), 1000)
@@ -15,14 +13,14 @@ function StateAndEffects() {
       clearInterval(id)
     }
   }, [])
-  useEffect(() => {
+  React.useEffect(() => {
     console.log('This run every twice render')
 
     return () => {
       console.log(`Unsubscribing`)
     }
   }, [Math.round(count / 2)])
-  useEffect(() => {
+  React.useEffect(() => {
     console.log('This run at every render')
     document.title = count
   })
@@ -36,12 +34,12 @@ function StateAndEffects() {
 
 const TestContext = React.createContext(0)
 function ContextConsumer() {
-  const value = useContext(TestContext)
+  const value = React.useContext(TestContext)
   return value
 }
 
 function ToggleMount(props) {
-  const [active, setActive] = useState(true)
+  const [active, setActive] = React.useState(true)
   return (
     <div>
       <div>

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React = require('react')
 import { activate, addMiddleware } from 'react-lifecycle-hooks'
 
 let lockedTarget: React.Component | null = null
@@ -193,7 +193,13 @@ export function useContext<T>(context: React.Context<T>) {
   }
 }
 
-export function holyShit() {
+let activated = false
+export function polyfill() {
+  if (activated) return
+  activated = true
+  ;(<any>React).useContext = useContext
+  ;(<any>React).useState = useState
+  ;(<any>React).useEffect = useEffect
   activate({
     transformToClass: true,
     fill: true,
@@ -231,3 +237,5 @@ export function holyShit() {
     }
   })
 }
+
+polyfill()
