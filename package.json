@@ -1,0 +1,19 @@
+{
+  "name": "react-use-hooks",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "yarn parcel test/index.html"
+  },
+  "dependencies": {
+    "@types/react": "^16.8.8",
+    "react": "^16.0.0",
+    "react-dom": "^16.8.5",
+    "react-lifecycle-hooks": "^0.4.0"
+  },
+  "devDependencies": {
+    "parcel": "^1.12.3"
+  }
+}
