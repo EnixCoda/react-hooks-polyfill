@@ -19,4 +19,8 @@ function Counter() {
 }
 ```
 
-> Currently supports React v16.3 and above.
+## Implemented hooks
+
+- `useState`
+- `useEffect`
+- `useContext` (need React v16.3 or above)
