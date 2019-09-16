@@ -12,7 +12,7 @@ At the very beginning of your app, add this snippet:
 import 'react-hooks-polyfill'
 ```
 
-Then you get access to the hooks API.
+Then you get access to the hooks API, magically.
 
 ```jsx
 import React from 'react'
