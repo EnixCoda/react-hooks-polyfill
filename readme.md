@@ -2,12 +2,19 @@
 
 Polyfill for react hooks, no HoC needed!
 
+> This is a experimental project, please do NOT use in production!
+
 ## Usage
 
 At the very beginning of your app, add this snippet:
 
 ```js
-import 'react-hooks-polyfill' // This is all you need
+import 'react-hooks-polyfill'
+```
+
+Then you get access to the hooks API.
+
+```jsx
 import React from 'react'
 
 function Counter() {
